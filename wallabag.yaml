@@ -1,0 +1,24 @@
+name: wallabag-project
+
+services:
+  wallabag:
+    image: wallabag/wallabag:2.6.14
+    container_name: wallabag
+    hostname: d4f050181eb2
+    restart: unless-stopped
+    ports:
+      - "8082:80"
+    environment:
+      - SYMFONY__ENV__DOMAIN_NAME=https://wallabag.rogersbradley.com/
+    volumes:
+      - wallabag-data:/var/www/wallabag/data
+      - wallabag-images:/var/www/wallabag/web/assets/images
+    network_mode: bridge
+    working_dir: /var/www/wallabag
+    runtime: runc
+
+volumes:
+  wallabag-data:
+    external: true
+  wallabag-images:
+    external: true
